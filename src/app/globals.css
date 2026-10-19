@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #050508;
+  --text: #f0f0f5;
+  --muted: #8b8b9a;
+  --accent: #00f0ff;
+  --energy: #ff2d6a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.experience-root {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.scroll-track {
+  position: relative;
+  width: 100%;
+}
+
+.chapter-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 8vw;
+  z-index: 10;
+}
+
+.chapter-overlay h1 {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  max-width: 12ch;
+}
+
+.chapter-overlay p {
+  margin-top: 1.25rem;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--muted);
+  max-width: 36ch;
+  line-height: 1.6;
+}
+
+.progress-rail {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 50;
+  border-radius: 1px;
+}
+
+.progress-fill {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: height 0.1s linear;
+}
+
+@media (max-width: 768px) {
+  .chapter-overlay {
+    padding: 0 6vw;
+    justify-content: flex-end;
+    padding-bottom: 18vh;
+  }
+  .progress-rail {
+    right: 12px;
+    height: 80px;
+  }
+}
