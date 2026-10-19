@@ -58,11 +58,11 @@ export default function Environment({ type, progress }: Props) {
       <gridHelper ref={gridRef} args={[30, 40, "#1a1a2e", "#0f0f18"]} position={[0, 0.01, 0]} />
       <points ref={particlesRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={floatingCount} array={floatPositions} itemSize={3} />
+          <bufferAttribute attach="attributes-position" args={[floatPositions, 3]} />
         </bufferGeometry>
         <pointsMaterial
           size={0.08}
-          color={type === "failure" ? "#ff2d6a" : "#00f0ff"}
+          color={type === "warroom" ? "#ff2d6a" : "#00f0ff"}
           transparent
           opacity={0.35 + progress * 0.25}
           depthWrite={false}
@@ -72,7 +72,7 @@ export default function Environment({ type, progress }: Props) {
       <mesh position={[0, 3, -12]}>
         <planeGeometry args={[24, 8]} />
         <meshBasicMaterial
-          color={type === "breakthrough" || type === "future" ? "#00f0ff" : "#12122a"}
+          color={type === "city" || type === "future" ? "#00f0ff" : "#12122a"}
           transparent
           opacity={0.12 + progress * 0.15}
           side={THREE.DoubleSide}

@@ -82,8 +82,8 @@ export default function ThoughtSystem({ progress, controlStrength }: Props) {
     <group>
       <points ref={pointsRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={particleCount} array={positions} itemSize={3} />
-          <bufferAttribute attach="attributes-color" count={particleCount} array={colors} itemSize={3} />
+          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+          <bufferAttribute attach="attributes-color" args={[colors, 3]} />
         </bufferGeometry>
         <pointsMaterial
           size={0.045}
@@ -97,7 +97,7 @@ export default function ThoughtSystem({ progress, controlStrength }: Props) {
       </points>
       <lineSegments ref={linesRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={linePositions.length / 3} array={linePositions} itemSize={3} />
+          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
         <lineBasicMaterial
           color="#00f0ff"
