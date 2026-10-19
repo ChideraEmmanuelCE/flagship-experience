@@ -25,12 +25,16 @@ export default function Home() {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const p = docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
       setProgress(p);
-      const chapterIndex = Math.min(CHAPTERS.length - 1, Math.floor(p * CHAPTERS.length));
+      const chapterIndex = Math.min(CHAPTERS.length - 1, Math.floor((scrollTop + window.innerHeight / 2) / window.innerHeight));
       setActiveChapter(chapterIndex);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
