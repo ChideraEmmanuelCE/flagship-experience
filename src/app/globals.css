@@ -136,3 +136,11 @@ h2 { font-size:clamp(40px,4.5vw,61px); font-weight:400; line-height:1.07; letter
 @media(prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto; }*,*:before,*:after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
 }
+
+/* Decorative and control symbols use the same stroke-based SVG icon set. */
+.icon { display:inline-block; vertical-align:middle; flex-shrink:0; }
+.orbit-tag,.hero-bottom>span,.hud-route,.site-footer>a:last-child { display:inline-flex; align-items:center; gap:6px; }
+.hud-route { justify-content:center; }
+.title-spark,.small-cross,.mini-symbol,.step-icon,.about-asterisk,.tiny-cross { line-height:1; }
+.identity-mark>span { display:inline-flex; align-items:center; padding-left:4px; margin-left:2px; font-size:15px; letter-spacing:0; vertical-align:baseline; }
+.identity-mark>span .icon { width:12px; height:12px; }
