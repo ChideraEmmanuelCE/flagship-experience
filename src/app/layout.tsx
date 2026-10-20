@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Flagship Experience",
-  description: "Ideas become reality. Thinking becomes motion.",
+  title: "Neural Drive — Chidera Emmanuel",
+  description: "What if the next move began in your mind? An interactive exploration of intention and motion by Chidera Emmanuel.",
   openGraph: {
-    title: "Flagship Experience",
-    description: "A glimpse of someone's future.",
+    title: "Neural Drive — Chidera Emmanuel",
+    description: "Hands at rest. Possibility in motion. Step inside a mind-controlled driving concept.",
   },
 };
 
