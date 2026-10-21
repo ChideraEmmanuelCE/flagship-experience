@@ -3,10 +3,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Neural Drive — Chidera Emmanuel",
-  description: "What if the next move began in your mind? An interactive exploration of intention and motion by Chidera Emmanuel.",
+  description: "An accessible driving simulator concept with scenic routes, adaptable controls, and a personal journey journal. By Chidera Emmanuel.",
   openGraph: {
     title: "Neural Drive — Chidera Emmanuel",
-    description: "Hands at rest. Possibility in motion. Step inside a mind-controlled driving concept.",
+    description: "Your route. Your pace. Explore an accessible driving simulator concept by Chidera Emmanuel.",
   },
 };
 
