@@ -5,6 +5,7 @@ import { Component, memo, useCallback, useEffect, useMemo, useRef, useState, typ
 import { advanceTelemetry, emptyTelemetry, finishJourney, formatDuration, routes, type Intent, type Journey, type Preferences, type RouteId, type Telemetry } from "@/lib/drive";
 import Icon, { type IconName } from "./Icon";
 import DrivingWorld from "./DrivingWorld";
+import MovingScenery from "./MovingScenery";
 import DriveSettings from "./DriveSettings";
 import JourneyJournal from "./JourneyJournal";
 import RoadSound from "./RoadSound";
@@ -26,7 +27,7 @@ class RoadBoundary extends Component<{ children: ReactNode }, { failed: boolean 
   render() { return this.state.failed ? fallback : this.props.children; }
 }
 const RoadScene = memo(function RoadScene({ active, still, intent, route, view, telemetry }: { active: boolean; still: boolean; intent: Intent; route: RouteId; view: Preferences["camera"]; telemetry: RefObject<Telemetry> }) {
-  return <div className={`world-layer route-${route}`} aria-hidden="true"><div className="scenery-backdrop" style={{ backgroundImage: `url(${routes.find(r => r.id === route)!.image})` }}/><RoadBoundary><Canvas camera={CAMERA} dpr={[1, 1.5]} frameloop={active && !still ? "always" : "demand"} gl={GL} fallback={fallback}><DrivingWorld active={active} still={still} targetLane={intent === "left" ? -1 : intent === "right" ? 1 : 0} route={route} view={view} telemetry={telemetry}/></Canvas></RoadBoundary></div>;
+  return <div className={`world-layer route-${route}`} aria-hidden="true"><MovingScenery active={active} still={still} route={route} telemetry={telemetry}/><RoadBoundary><Canvas camera={CAMERA} dpr={[1, 1.5]} frameloop={active && !still ? "always" : "demand"} gl={GL} fallback={fallback}><DrivingWorld active={active} still={still} targetLane={intent === "left" ? -1 : intent === "right" ? 1 : 0} route={route} view={view} telemetry={telemetry}/></Canvas></RoadBoundary></div>;
 });
 
 export default function Experience() {

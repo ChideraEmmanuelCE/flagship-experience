@@ -73,3 +73,7 @@ Data/telemetry checks (Node 22.6+):
 ```bash
 node --experimental-strip-types --test tests/drive.test.mjs
 ```
+
+## Scenery motion
+
+The landscape now has two overlapping photographic parallax passes that expand away from the road’s vanishing point. Movement is integrated from the same speed telemetry as the road, with a gentle fade-in from rest. Crossfades conceal the photographic loop. The cabin and camera stay fixed, and page scrolling never drives movement. Pause, hidden tabs and offscreen panels freeze the scenery; braking slows it to a stop. Still scenery and system reduced-motion settings hide the moving passes. This is a repeating photographic depth effect, not an infinite reconstructed 3D landscape. No additional images or dependencies are used.

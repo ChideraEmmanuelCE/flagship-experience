@@ -61,6 +61,11 @@ h2 { font-size:clamp(40px,4.5vw,61px); font-weight:400; line-height:1.07; letter
 .cockpit-stage { position:relative; aspect-ratio:16/9; isolation:isolate; overflow:hidden; background:linear-gradient(#c6e2ed,#e5eddb); }
 .world-layer { position:absolute; inset:0; z-index:0; }
 .scenery-backdrop { position:absolute; inset:0; background:url('/images/scenic-route.webp') center bottom / 100% 130% no-repeat; }
+.scenery-flow { position:absolute; inset:0; overflow:hidden; pointer-events:none; mask-image:linear-gradient(to bottom,transparent 12%,#000 42%); -webkit-mask-image:linear-gradient(to bottom,transparent 12%,#000 42%); }
+.scenery-pass { transform-origin:50% 27%; will-change:transform,opacity; }
+.view-driver .scenery-pass { transform-origin:50% 39%; }
+.scenery-flow[data-motion=paused] .scenery-pass,.scenery-flow[data-motion=still] .scenery-pass { will-change:auto; }
+.scenery-flow[data-motion=still] { visibility:hidden; }
 .cockpit-image { position:absolute; inset:0; width:100%; height:100%; object-fit:fill; z-index:1; pointer-events:none; user-select:none; }
 .neural-link { position:absolute; inset:0; width:100%; height:100%; z-index:3; pointer-events:none; }
 .signal-pulse { animation:signal-travel 2.6s linear infinite; }
