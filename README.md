@@ -77,3 +77,9 @@ node --experimental-strip-types --test tests/drive.test.mjs
 ## Scenery motion
 
 The landscape now has two overlapping photographic parallax passes that expand away from the road’s vanishing point. Movement is integrated from the same speed telemetry as the road, with a gentle fade-in from rest. Crossfades conceal the photographic loop. The cabin and camera stay fixed, and page scrolling never drives movement. Pause, hidden tabs and offscreen panels freeze the scenery; braking slows it to a stop. Still scenery and system reduced-motion settings hide the moving passes. This is a repeating photographic depth effect, not an infinite reconstructed 3D landscape. No additional images or dependencies are used.
+
+## Selected work
+
+`/case-study` documents Neural Drive and LocHire only. It distinguishes implementation checks from planned participant validation and explains product direction and AI assistance. The public LocHire homepage at https://lochire.ng was reviewed on 21 October 2026; no usage, revenue, payment-activation or hiring-outcome figures are claimed.
+
+The captioned walkthrough in `public/media/neural-drive-demo.mp4` uses a browser recording of the live simulator's 3D canvas, its photographic cockpit and landscape layers, and current controls/state, composited with explanatory titles. The last cards introduce LocHire and the proposed 5–10-person validation milestone. The video is a product overview, not participant evidence. English WebVTT and an HTML transcript are available.

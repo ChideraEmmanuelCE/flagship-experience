@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <header className="site-header wrap">
         <a className="identity" href="#top" aria-label="Chidera Emmanuel home"><span className="identity-mark">ce<span><Icon name="dot" size="1em" /></span></span><span>CHIDERA EMMANUEL<small>INDEPENDENT BUILDER & CREATIVE DEVELOPER</small></span></a>
-        <nav aria-label="Main navigation"><a href="#experience">Experience</a><a href="#how-it-works">The thinking</a><a className="nav-contact" href="mailto:chideraemmanuelokpala@gmail.com">Let’s talk <Icon name="arrow-up-right" /></a></nav>
+        <nav aria-label="Main navigation"><a href="#experience">Experience</a><a href="/case-study">Selected work</a><a className="nav-contact" href="mailto:chideraemmanuelokpala@gmail.com">Let’s talk <Icon name="arrow-up-right" /></a></nav>
       </header>
       <main id="top">
         <section className="hero wrap" aria-labelledby="hero-title">
@@ -40,6 +40,7 @@ export default function Home() {
           </div>
         </section>
         <section className="accessibility-note wrap" aria-labelledby="accessibility-title"><span><Icon name="heart" size={26} /></span><div><p className="eyebrow">BUILT AROUND THE PERSON</p><h3 id="accessibility-title">Different ways to choose. The same open road.</h3><p>Large controls, keyboard shortcuts, single-switch scanning, a gentle pace, and a steady-view option. Choose settings that suit you, without sharing a diagnosis. This is an early concept; feedback from disabled users should shape what comes next.</p></div></section>
+        <section className="selected-work-home wrap" aria-labelledby="selected-work-title"><div><p className="eyebrow">SELECTED WORK</p><h2 id="selected-work-title">Access, in<br /><em>different forms.</em></h2><p>Explore the decisions behind Neural Drive and my local hiring platform, LocHire.</p><a className="text-link" href="/case-study">Read the case study <Icon name="arrow-right" size={17}/></a></div><a className="lochire-home-card" href="https://lochire.ng" target="_blank" rel="noreferrer"><span className="eyebrow">ALSO BUILDING / LIVE PLATFORM</span><strong>LocHire <Icon name="arrow-up-right" size={27}/></strong><p>Find local workers.<br />Find work near you.</p><span>Connecting workers and hirers nearby in Nigeria.</span></a></section>
         <section className="about-section wrap" id="about"><div className="about-label"><p className="eyebrow">03 / THE BUILDER</p><span className="about-asterisk" aria-hidden="true"><Icon name="asterisk" size="1em" /></span></div><div><h2>I build ideas you<br />can <em>step into.</em></h2><p>I’m Chidera Emmanuel. I explore the space between thoughtful design and working software, turning “what if” into something you can experience.</p><a className="primary-link" href="mailto:chideraemmanuelokpala@gmail.com">Have something in mind? <Icon name="arrow-up-right" /></a></div></section>
       </main>
       <footer className="site-footer wrap"><a className="footer-signature" href="#top">Chidera Emmanuel<span>© {new Date().getFullYear()}</span></a><span>BUILT WITH INTENTION.</span><a href="#top">Back to top <Icon name="arrow-up" size={11} /></a></footer>
