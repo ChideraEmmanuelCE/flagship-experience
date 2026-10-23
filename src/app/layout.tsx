@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Neural Drive — Chidera Emmanuel",
-  description: "An accessible driving simulator concept with scenic routes, adaptable controls, and a personal journey journal. By Chidera Emmanuel.",
+  title: "Chidera Emmanuel | Websites & Product Development",
+  description: "Business websites, product catalogues and interactive prototypes by Chidera Emmanuel. Explore services and selected work.",
   openGraph: {
-    title: "Neural Drive — Chidera Emmanuel",
-    description: "Your route. Your pace. Explore an accessible driving simulator concept by Chidera Emmanuel.",
+    title: "Chidera Emmanuel | Websites & Product Development",
+    description: "Thoughtful websites and working prototypes for businesses. Explore Chidera Emmanuel’s services and LocHire.",
   },
 };
 
