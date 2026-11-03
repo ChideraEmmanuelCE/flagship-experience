@@ -6,7 +6,7 @@ export const INTERACTION_RANGE = 4.8;
 export const RESCUE_DURATION_MS = 5000;
 export const ROUND_RESET_MS = 12000;
 export const MAX_PLAYERS = 12;
-export const ENEMY_COUNT = 9;
+export const ENEMY_COUNT = 7;
 
 export type Tree = { x: number; z: number; size: number };
 export type IceWall = { x: number; z: number; width: number; depth: number; yaw: number };
@@ -41,13 +41,13 @@ export function collidesWall(x: number, z: number, padding = 0.6) {
 
 export const TREES: Tree[] = (() => {
   const trees: Tree[] = [];
-  for (let i = 0; i < 290 && trees.length < 112; i++) {
+  for (let i = 0; i < 285 && trees.length < 46; i++) {
     const x = (random01(i * 3 + 10) * 2 - 1) * 43;
     const z = (random01(i * 3 + 11) * 2 - 1) * 43;
     const r = Math.hypot(x, z);
-    if (r < 8 || r > 43 || collidesWall(x, z, 3) || (r > 33 && r < 40)) continue;
-    const size = 0.72 + random01(i * 3 + 12) * 0.85;
-    if (trees.some((t) => Math.hypot(x - t.x, z - t.z) < 3.2)) continue;
+    if (r < 13 || r > 43 || collidesWall(x, z, 4) || (r > 33 && r < 40)) continue;
+    const size = 0.84 + random01(i * 3 + 12) * 0.83;
+    if (trees.some((t) => Math.hypot(x - t.x, z - t.z) < 5.1)) continue;
     trees.push({ x, z, size });
   }
   return trees;
@@ -71,7 +71,7 @@ export function spawnPosition(slot: number) {
 export function enemyPosition(index: number, timeMs: number) {
   const i = index % ENEMY_COUNT;
   const phase = timeMs * (0.00024 + (i % 3) * 0.00006) + (i * Math.PI * 2) / ENEMY_COUNT;
-  const radius = 10 + (i % 3) * 6.8;
+  const radius = 9.5 + (i % 3) * 6.2;
   const x = Math.sin(phase) * radius + Math.cos(phase * 2.1 + i) * 2.3;
   const z = Math.cos(phase) * radius + Math.sin(phase * 1.7 + i) * 2.3;
   return { x, z, yaw: Math.atan2(Math.cos(phase), Math.sin(phase)) };

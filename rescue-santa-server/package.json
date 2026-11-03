@@ -4,10 +4,16 @@
   "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsx server.ts"
+    "start": "tsx server.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "tsx": "^4.20.6",
     "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.9.0"
   }
 }

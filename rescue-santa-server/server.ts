@@ -5,6 +5,7 @@ import RescueSantaRoom from './party/server';
 
 const PORT = Number(process.env.PORT || 1999);
 const rooms = new Map<string, { controller: RescueSantaRoom; sockets: Map<string, WebSocket> }>();
+
 const wss = new WebSocketServer({ noServer: true, maxPayload: 2048 });
 const server = http.createServer((req, res) => {
   if (req.url?.startsWith('/health')) {
@@ -25,7 +26,7 @@ server.on('upgrade', (req, socket, head) => {
   wss.handleUpgrade(req, socket, head, ws => wss.emit('connection', ws, req));
 });
 wss.on('connection', (socket, request) => {
-  const roomName = new URL(request.url || '/', 'http://localhost').pathname.split('/').pop();
+  const roomName = new URL(request.url || '/', 'http://localhost').pathname.split('/').pop()!;
   let game = rooms.get(roomName);
   if (!game) {
     const sockets = new Map<string, WebSocket>();
@@ -58,8 +59,10 @@ wss.on('connection', (socket, request) => {
   socket.on('close', () => {
     currentGame.controller.onClose(connection as never);
     currentGame.sockets.delete(id);
-    if (!currentGame.sockets.size) rooms.delete(roomName);
+    if (!currentGame.sockets.size) {
+      rooms.delete(roomName);
+    }
   });
-  socket.on('error', () => {});
+  socket.on('error', () => { /* close event handles removal */ });
 });
-server.listen(PORT, '0.0.0.0', () => console.log('Rescue Santa realtime server listening on :' + PORT));
+server.listen(PORT, '0.0.0.0', () => console.log(`Rescue Santa realtime server listening on :${PORT}`));

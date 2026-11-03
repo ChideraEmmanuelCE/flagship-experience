@@ -7,8 +7,12 @@ export type PlayerState = Vec3 & {
   score: number;
   stunnedUntil: number;
   interacting: boolean;
+  health: number;
+  deadUntil: number;
+  kills: number;
+  lastHit: number;
 };
-export type EnemyState = { id: number; x: number; z: number; yaw: number; stunnedUntil: number };
+export type EnemyState = { id: number; x: number; z: number; yaw: number; stunnedUntil: number; health: number; downUntil: number; attackUntil: number };
 export type RoundState = {
   round: number;
   status: "playing" | "rescued";
@@ -33,5 +37,6 @@ export type ServerMessage =
   | { type: "round"; round: RoundState; serverTime: number }
   | { type: "snowball"; id: string; x: number; y: number; z: number; yaw: number; hitEnemy: number | null; serverTime: number }
   | { type: "stunned"; id: string; until: number }
+  | { type: "playerHit"; id: string; damage: number; health: number; deadUntil: number; enemyId: number; serverTime: number }
+  | { type: "enemyHit"; id: number; health: number; downUntil: number; playerId: string; serverTime: number }
   | { type: "notice"; message: string };
-
