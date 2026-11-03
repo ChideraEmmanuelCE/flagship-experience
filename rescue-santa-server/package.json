@@ -1,0 +1,13 @@
+{
+  "name": "rescue-santa-realtime",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "tsx server.ts"
+  },
+  "dependencies": {
+    "tsx": "^4.20.6",
+    "ws": "^8.18.3"
+  }
+}
