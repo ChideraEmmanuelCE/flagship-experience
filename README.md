@@ -1,85 +1,28 @@
-# Neural Drive — Chidera Emmanuel
+# OBSIDIAN — Cinematic Automotive Reveal
 
-A light editorial portfolio with a self-contained, interactive driving concept.
-The driver sits inside the car with hands at rest. A simulated neural signal links
-the headband to the dashboard while a real-time Three.js road moves through the
-transparent windshield. Page scrolling never controls the camera or simulation.
+A full-screen, mobile-first automotive concept website featuring a photorealistic black SUV emerging from liquid metal. **The reveal is a pre-rendered MP4**, not a WebGL or CSS-rendered 3D car. This ensures the cinematic vehicle is visible on iPhone Safari even when WebGL is unavailable.
 
-## Experience
+## Features
+- Progressive SUV assembly from generated photographic frames
+- 10.8-second cinematic film with original synthesized sound effects
+- Muted, inline, autoplay-ready MP4 (H.264/AAC)
+- Replay, sound toggle, accessible timeline scrubbing
+- Still-image fallback if video playback fails
+- Minimal black and silver interface; no emojis or low-poly 3D
+- Static site deployable to Vercel without a build pipeline
 
-- Cruise, left lane, right lane and brake simulate driving intentions.
-- Pause freezes the drive. Animation also pauses offscreen and in hidden tabs.
-- Reduced-motion preferences disable automatic playback.
-- The scene has a static fallback when WebGL is unavailable.
-- Controls are a browser simulation; there is no real brain input or hardware integration.
+## Run locally
 
-## Visual asset
-
-`public/images/neural-cockpit.webp` is a generated photographic foreground with
-transparent window openings, created with the built-in image generation tool and
-encoded as WebP with its alpha preserved. The road is rendered behind it in 3D;
-the cockpit is a photographic layer, not an orbitable 3D car model.
-
-`public/images/scenic-route.webp` is a generated photographic landscape behind
-the transparent WebGL layer. Asset prompt: real straight countryside highway
-leading toward coastal foothills, oak and olive trees, warm morning light,
-natural asphalt and metal guardrails, no cars, people, text or stylization.
-
-Asset prompt: photoreal luxury ivory electric-car interior viewed forward from
-the rear seat; a young adult Black driver wearing a cream shirt and silver neural
-headband sits in the left driver seat with hands on his lap, away from the
-steering wheel; visible dashboard and console; bright daylight; genuinely
-transparent windshield and side windows for an animated road; no logos or text.
-
-## Stack
-Next.js 15 · React Three Fiber · Drei · Three.js · GSAP · Tailwind
-
-## Run
 ```bash
-npm install
-npm run dev
+python3 -m http.server 8080
 ```
 
-Production verification: `npm run build`.
+Visit http://localhost:8080. For Safari, use HTTPS when testing on a phone via a remote address.
 
-## Accessible journeys
+## Notes
 
-- Three finite scenic routes: coast (2.5 km), woodland (1.5 km), and city (1 km).
-- Cabin and driver’s-eye photographic views over the same real-time road.
-- Explicit Start, Pause/Resume, Brake, and End & save controls. Arrival saves automatically.
-- Gentle assisted pace by default; optional regular pace, increased contrast and still scenery.
-- Configurable WASD/arrow shortcuts work while the scene has focus. Escape pauses.
-- Single-switch scanning cycles over actions at 2, 3 or 5 seconds. The selection pad is a native button, usable by switches mapped to Enter/Space.
-- Road sound is synthesized locally with Web Audio and starts only after an explicit click.
-- Drive telemetry is independent of WebGL, so still scenery and fallback previews can retain the same controls. Active time and distance pause when the driving panel is offscreen or the document is hidden.
+The SUV reveal is an original AI-generated frame sequence blended into a cinematic film; it is not a continuously simulated physics morph or a rotatable 3D model. The reference clip is used for art direction only. No manufacturer partnership or affiliation is implied.
 
-## Local journal and data
+## Deployment
 
-The versioned `neural-drive:v1` localStorage profile contains preferences, up to 100 completed virtual journeys and one unfinished draft. Drafts checkpoint every five seconds and on page hide. Reopening offers a paused continuation. A completed journey stores its start time, route, virtual distance, active duration, last selected control mode, and an optional reflection (280 characters). No GPS, diagnosis or brain activity is requested. No journey data is sent to a backend; this is browser storage, not an authenticated account or cross-device sync. Shared-browser users can see the journal, and clearing browser storage deletes it. A storage failure displays a warning and leaves in-memory export available.
-
-Journeys can be deleted individually or cleared with an inline confirmation. CSV export quotes notes and neutralizes spreadsheet formulas. Restored profiles are validated; malformed entries are ignored.
-
-## New generated assets
-
-All were made with the built-in image generation tool, then encoded as WebP; window alpha is preserved. The cockpit layers are photographs, not orbitable car models. Mirrors are part of those static photographs.
-
-- `public/images/woodland-route.webp`: photoreal forward view of a quiet straight woodland road, mature trees, filtered daylight, driver-height camera, central vanishing point, no cars, people, text, logos, or interior.
-- `public/images/city-route.webp`: photoreal quiet modern boulevard with warm stone and glass buildings and trees, morning daylight, central straight road, no cars, text, logos, or interior.
-- `public/images/driver-cockpit.webp`: photoreal first-person ivory-leather and wood car interior, hands resting on thighs away from the wheel, wide windshield and side windows with genuine alpha transparency, natural daylight, no brands or floating displays.
-
-The interface is an early accessibility concept. It has not been certified for WCAG conformance or validated with disabled participants. Real BCI hardware, gaze and voice inputs are not implemented.
-
-Data/telemetry checks (Node 22.6+):
-```bash
-node --experimental-strip-types --test tests/drive.test.mjs
-```
-
-## Scenery motion
-
-The landscape now has two overlapping photographic parallax passes that expand away from the road’s vanishing point. Movement is integrated from the same speed telemetry as the road, with a gentle fade-in from rest. Crossfades conceal the photographic loop. The cabin and camera stay fixed, and page scrolling never drives movement. Pause, hidden tabs and offscreen panels freeze the scenery; braking slows it to a stop. Still scenery and system reduced-motion settings hide the moving passes. This is a repeating photographic depth effect, not an infinite reconstructed 3D landscape. No additional images or dependencies are used.
-
-## Selected work
-
-`/case-study` documents Neural Drive and LocHire only. It distinguishes implementation checks from planned participant validation and explains product direction and AI assistance. The public LocHire homepage at https://lochire.ng was reviewed on 21 October 2026; no usage, revenue, payment-activation or hiring-outcome figures are claimed.
-
-The captioned walkthrough in `public/media/neural-drive-demo.mp4` uses a browser recording of the live simulator's 3D canvas, its photographic cockpit and landscape layers, and current controls/state, composited with explanatory titles. The last cards introduce LocHire and the proposed 5–10-person validation milestone. The video is a product overview, not participant evidence. English WebVTT and an HTML transcript are available.
+Deploy root as a static site on Vercel; project has no build command and no dependencies. Generated frames remain in `public/` as production assets; the video is at `/obsidian-reveal.mp4`.

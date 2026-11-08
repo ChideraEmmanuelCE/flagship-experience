@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#d3d3d3" />
+  <meta name="description" content="OBSIDIAN — a cinematic liquid-metal SUV transformation." />
+  <title>OBSIDIAN — Automotive in Motion</title>
+  <link rel="preload" href="/final.jpg" as="image" />
+  <link rel="preload" href="/obsidian-reveal.mp4" as="video" type="video/mp4" />
+  <style>
+:root { font-synthesis:none; --ink:#141414; --silver:#d2d2d2; --line:rgba(18,18,18,.2); --pad:clamp(23px,4.1vw,68px); }
+*,*::before,*::after { box-sizing:border-box; }
+html,body { margin:0; padding:0; min-width:320px; height:100%; overflow:hidden; }
+body { background:#d4d4d4; color:var(--ink); font-family:Arial,Helvetica,sans-serif; -webkit-font-smoothing:antialiased; }
+button,a { -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+button:focus-visible,a:focus-visible,[role=slider]:focus-visible { outline:2px solid #000; outline-offset:5px; }
+.experience { position:relative; width:100%; min-height:100vh; min-height:100svh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse 80% 56% at 50% 39%,#f0f0f0 0%,#e5e5e5 55%,#c4c4c4 100%); }
+.masthead { position:absolute; z-index:8; top:0; left:0; width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:clamp(26px,3vw,42px) var(--pad); }
+.wordmark { font-weight:900; font-family:Arial Black,Arial,Helvetica,sans-serif; font-size:clamp(22px,2.25vw,33px); letter-spacing:-.075em; color:var(--ink); text-decoration:none; line-height:1; }
+.wordmark .dot { color:#9c9c9c; }
+.header-right { display:flex; align-items:center; gap:13px; white-space:nowrap; color:#414141; font-size:9px; letter-spacing:.31em; font-weight:700; }
+.header-line { width:30px; height:1px; background:currentColor; }
+.edition { color:#777; }
+.scene { position:absolute; inset:0; overflow:hidden; }
+.film-wrap { position:absolute; inset:0; overflow:hidden; transform:translateZ(0); }
+.reveal-video,.poster-image { position:absolute; left:50%; top:50%; width:100vw; min-width:1080px; height:auto; transform:translate(-50%,-50%) scale(1.075); object-fit:contain; user-select:none; pointer-events:none; -webkit-user-drag:none; }
+.reveal-video { z-index:2; opacity:1; background:#d9d9d9; transition:opacity .38s ease; }
+.poster-image { z-index:1; opacity:1; filter:brightness(.99); }
+.film-wrap.video-error .reveal-video { opacity:0; }
+.film-glow { position:absolute; inset:0; z-index:3; pointer-events:none; background:linear-gradient(180deg,rgba(228,228,228,.31) 0%,transparent 19%,transparent 74%,rgba(201,201,201,.2) 100%); }
+.scene-topline { position:absolute; top:22%; left:var(--pad); right:var(--pad); display:flex; align-items:center; justify-content:space-between; z-index:5; color:#363636; font-size:9px; font-weight:700; letter-spacing:.31em; opacity:.65; }
+.toolbar { position:absolute; z-index:9; left:var(--pad); right:var(--pad); bottom:max(40px, env(safe-area-inset-bottom,0px) + 22px); }
+.control-row { display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center; gap:12px; margin-bottom:24px; }
+.control { background:none; border:0; color:var(--ink); padding:10px 0; display:flex; align-items:center; gap:12px; font-family:inherit; font-size:10px; letter-spacing:.21em; font-weight:700; cursor:pointer; width:max-content; }
+.control svg { width:18px; height:18px; stroke:currentColor; stroke-width:1.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.control:hover { opacity:.5; }
+.center-note { display:flex; align-items:center; justify-content:center; gap:15px; white-space:nowrap; font-size:9px; color:#555; letter-spacing:.23em; font-weight:700; }
+.separator { display:block; width:20px; height:1px; background:#777; }
+.sound-control { justify-self:end; }
+.sound-control.on .sound-strike { display:none; }
+.progress { position:relative; width:100%; height:18px; padding-top:8px; cursor:pointer; touch-action:none; outline-offset:5px; }
+.progress::before { content:""; position:absolute; top:8px; left:0; right:0; height:1px; background:rgba(20,20,20,.28); }
+.progress-fill { position:absolute; top:8px; left:0; width:0; height:1px; background:#111; }
+.progress-handle { position:absolute; top:4px; left:0; width:9px; height:9px; border:1px solid #111; border-radius:50%; background:#171717; transform:translateX(-50%); transition:box-shadow .2s ease; }
+.progress:hover .progress-handle { box-shadow:0 0 0 5px rgba(0,0,0,.08); }
+.play-gesture { position:absolute; z-index:7; bottom:19%; left:50%; transform:translateX(-50%); }
+.play-gesture[hidden] { display:none; }
+.play-gesture button { appearance:none; border:1px solid rgba(12,12,12,.4); border-radius:999px; background:rgba(236,236,236,.75); color:#191919; display:flex; align-items:center; gap:10px; padding:13px 18px; font-size:10px; font-weight:700; letter-spacing:.18em; backdrop-filter:blur(12px); cursor:pointer; white-space:nowrap; }
+.play-gesture svg { width:18px; height:18px; }
+.bottom-fade { pointer-events:none; position:absolute; z-index:4; bottom:0; left:0; right:0; height:8%; background:linear-gradient(transparent,rgba(206,206,206,.3)); }
+@media (min-width:1500px) { .reveal-video,.poster-image { min-width:0; width:100vw; } }
+@media (max-width:800px) {
+ .masthead { padding-top:max(32px,env(safe-area-inset-top,0px) + 20px); }
+ .header-right { font-size:8px; letter-spacing:.18em; gap:8px; }
+ .header-line { width:18px; }
+ .scene-topline { top:25%; font-size:8px; }
+ .reveal-video,.poster-image { width:150vw; min-width:0; max-width:none; transform:translate(-50%,-50%) scale(1.06); }
+ .control-row { grid-template-columns:1fr 1fr; }
+ .center-note { display:none; }
+ .toolbar { bottom:max(33px, env(safe-area-inset-bottom,0px) + 18px); }
+ .progress { height:25px; }
+}
+@media (max-width:480px) {
+ .wordmark { font-size:26px; }
+ .header-right { letter-spacing:.1em; font-size:7px; }
+ .header-line,.edition { display:none; }
+ .scene-topline { top:31%; font-size:7px; letter-spacing:.21em; }
+ .scene-topline span:last-child { display:none; }
+ .reveal-video,.poster-image { width:154vw; transform:translate(-50%,-52%) scale(1.025); }
+ .control-row { margin-bottom:12px; }
+ .control { gap:9px; font-size:9px; }
+ .control svg { width:17px; height:17px; }
+ .play-gesture { bottom:28%; }
+}
+@media (prefers-reduced-motion:reduce) { .reveal-video { transition:none; } }
+
+</style>
+</head>
+<body>
+  <main class="experience" id="experience">
+    <header class="masthead">
+      <a class="wordmark" href="#experience" aria-label="OBSIDIAN automotive concept home">OBSIDIAN<span class="dot">.</span></a>
+      <div class="header-right"><span class="header-line"></span><span>AUTOMOTIVE MOTION STUDY</span><span class="edition">/ 001</span></div>
+    </header>
+
+    <section class="scene" aria-label="Cinematic liquid-metal vehicle transformation">
+      <div class="film-wrap" id="film-wrap">
+        <video
+          id="reveal-video"
+          class="reveal-video"
+          autoplay
+          muted
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          poster="/final.jpg"
+          disablepictureinpicture
+          disableremoteplayback
+          aria-label="Black liquid transforming into a photorealistic SUV"
+        ><source src="/obsidian-reveal.mp4" type="video/mp4" /></video>
+        <img class="poster-image" src="/final.jpg" alt="Photorealistic black SUV in a silver studio" />
+      </div>
+      <div class="film-glow" aria-hidden="true"></div>
+      <div class="scene-topline" aria-hidden="true"><span>01 — THE FORM</span><span>OBSIDIAN / MOTION</span></div>
+      <div class="play-gesture" id="gesture" hidden>
+        <button id="gesture-play" type="button" aria-label="Play cinematic reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/></svg>
+          <span>PLAY FILM</span>
+        </button>
+      </div>
+    </section>
+
+    <footer class="toolbar">
+      <div class="control-row">
+        <button class="control" type="button" id="replay" aria-label="Replay the transformation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 11.9a8.4 8.4 0 1 0 2.8-6.3L3.3 8.8M3.3 3.9v4.9h4.9"/></svg>
+          <span>REPLAY</span>
+        </button>
+        <div class="center-note" aria-live="polite"><span id="phase">THE REVEAL</span><span class="separator"></span><span id="timecode">00:00 / 00:11</span></div>
+        <button class="control sound-control" type="button" id="sound" aria-label="Enable sound" aria-pressed="false">
+          <svg id="sound-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path class="sound-strike" d="m17 9 5 6m0-6-5 6"/></svg>
+          <span id="sound-label">SOUND OFF</span>
+        </button>
+      </div>
+      <div id="progress" class="progress" role="slider" tabindex="0" aria-label="Scrub the cinematic reveal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 seconds">
+        <div id="progress-fill" class="progress-fill"></div>
+        <div id="progress-handle" class="progress-handle"></div>
+      </div>
+    </footer>
+    <div class="bottom-fade" aria-hidden="true"></div>
+  </main>
+  <script>
+(() => {
+  'use strict';
+  const video = document.getElementById('reveal-video');
+  const filmWrap = document.getElementById('film-wrap');
+  const replay = document.getElementById('replay');
+  const sound = document.getElementById('sound');
+  const soundLabel = document.getElementById('sound-label');
+  const progress = document.getElementById('progress');
+  const fill = document.getElementById('progress-fill');
+  const handle = document.getElementById('progress-handle');
+  const timecode = document.getElementById('timecode');
+  const phase = document.getElementById('phase');
+  const gesture = document.getElementById('gesture');
+  const gesturePlay = document.getElementById('gesture-play');
+  const assumedDuration = 10.8;
+  let isScrubbing = false;
+  let isEnded = false;
+  let videoFailed = false;
+
+  function clock(t) {
+    t = Math.max(0, Math.floor(Number.isFinite(t) ? t : 0));
+    return `${String(Math.floor(t / 60)).padStart(2,'0')}:${String(t % 60).padStart(2,'0')}`;
+  }
+  function duration() { return Number.isFinite(video.duration) && video.duration > 0 ? video.duration : assumedDuration; }
+  function update() {
+    const d = duration();
+    const pct = Math.max(0, Math.min(100, ((video.currentTime || 0) / d) * 100));
+    fill.style.width = `${pct}%`;
+    handle.style.left = `${pct}%`;
+    progress.setAttribute('aria-valuenow', String(Math.round(pct)));
+    progress.setAttribute('aria-valuetext', `${Math.round(video.currentTime || 0)} seconds`);
+    timecode.textContent = `${clock(video.currentTime)} / ${clock(d)}`;
+    const t = video.currentTime || 0;
+    phase.textContent = t < 1.2 ? 'AWAKENING' : t < 4 ? 'TAKING FORM' : t < 7.5 ? 'ASSEMBLY' : 'THE ARRIVAL';
+  }
+  function showManualPlay() { gesture.hidden = false; }
+  function hideManualPlay() { gesture.hidden = true; }
+  function failPlayback() {
+    videoFailed = true;
+    filmWrap.classList.add('video-error');
+    // The final studio still is always visible; never display a blank WebGL canvas or WebGL warning.
+    showManualPlay();
+    gesturePlay.querySelector('span').textContent = 'RETRY FILM';
+  }
+  function start(fromBeginning = false) {
+    if (fromBeginning) { try { video.currentTime = 0; } catch (_) {} }
+    isEnded = false;
+    if (videoFailed) {
+      video.load();
+      videoFailed = false;
+      filmWrap.classList.remove('video-error');
+    }
+    const p = video.play();
+    if (p && typeof p.then === 'function') p.then(hideManualPlay).catch(showManualPlay);
+    else hideManualPlay();
+    update();
+  }
+  function toggleSound() {
+    video.muted = !video.muted;
+    video.volume = .7;
+    sound.setAttribute('aria-pressed', String(!video.muted));
+    sound.setAttribute('aria-label', video.muted ? 'Enable sound' : 'Mute sound');
+    soundLabel.textContent = video.muted ? 'SOUND OFF' : 'SOUND ON';
+    sound.classList.toggle('on', !video.muted);
+    if (!video.paused && !video.ended) return;
+    if (!videoFailed && !isEnded) start(false);
+  }
+  function setTimeFromPointer(event) {
+    const r = progress.getBoundingClientRect();
+    if (r.width <= 0 || videoFailed) return;
+    const pct = Math.max(0,Math.min(1,(event.clientX-r.left)/r.width));
+    if (video.readyState >= 1) video.currentTime = pct * duration();
+    update();
+  }
+  replay.addEventListener('click', () => start(true));
+  sound.addEventListener('click', toggleSound);
+  gesturePlay.addEventListener('click', () => start(isEnded));
+  progress.addEventListener('pointerdown', e => {
+    isScrubbing = true;
+    if (progress.setPointerCapture) progress.setPointerCapture(e.pointerId);
+    setTimeFromPointer(e);
+  });
+  progress.addEventListener('pointermove', e => { if (isScrubbing) setTimeFromPointer(e); });
+  progress.addEventListener('pointerup', e => { if (isScrubbing) setTimeFromPointer(e); isScrubbing=false; });
+  progress.addEventListener('pointercancel', () => { isScrubbing=false; });
+  progress.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      video.currentTime = Math.max(0,Math.min(duration(),(video.currentTime || 0) + (e.key === 'ArrowRight' ? 1 : -1)));
+      update();
+    } else if (e.key === 'Home') { video.currentTime=0; update(); }
+    else if (e.key === 'End') { video.currentTime=duration(); update(); }
+  });
+  video.addEventListener('loadedmetadata', update);
+  video.addEventListener('timeupdate', update);
+  video.addEventListener('playing', hideManualPlay);
+  video.addEventListener('ended', () => { isEnded=true; phase.textContent='THE ARRIVAL'; update(); });
+  video.addEventListener('error', failPlayback);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && !video.paused) video.pause();
+  });
+  // Safari allows muted, inline playback without requiring WebGL or a user gesture.
+  video.muted = true;
+  video.playsInline = true;
+  video.volume = .7;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.pause();
+    try { video.currentTime = Math.max(0,duration()-0.05); } catch(_) {}
+    showManualPlay();
+  } else {
+    start(false);
+  }
+  update();
+})();
+
+</script>
+</body>
+</html>
