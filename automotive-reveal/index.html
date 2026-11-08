@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f5f2" />
+  <meta name="description" content="OBSIDIAN — a cinematic 3D automotive reveal. An independent design and motion study." />
+  <title>OBSIDIAN — Arrive Like You Mean It</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="loading" id="loading" role="status" aria-live="polite"><span class="loading-mark">O<span class="loading-dot">.</span></span><span id="loadingText">INITIALIZING SHOWROOM</span><div class="loading-line"><i></i></div></div>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Obsidian home">OBSIDIAN<span class="mark-dot">.</span><small>AUTOMOTIVE CONCEPT</small></a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="#experience">THE EXPERIENCE</a><a href="#details">THE MACHINE</a><a href="#about">OUR VISION</a></nav>
+    <button class="sound-toggle" id="soundToggle" aria-label="Turn sound on" aria-pressed="false"><span class="sound-bars"><i></i><i></i><i></i></span><span id="soundLabel">SOUND OFF</span></button>
+  </header>
+  <main id="top">
+    <section class="hero" id="experience" aria-label="Cinematic vehicle experience">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span class="eyebrow-line"></span>BEYOND THE ORDINARY <span class="index">/ 001</span></div>
+        <h1>ARRIVE LIKE<br />YOU <em>MEAN</em> IT<span class="title-point">.</span></h1>
+        <p class="hero-desc">Presence isn't given.<br />It's engineered.</p>
+        <div class="hero-actions"><button id="replayButton" class="primary-btn"><span>REPLAY THE REVEAL</span><span class="arrow">↗</span></button><button id="exploreButton" class="ghost-btn"><span class="explore-icon">◉</span> EXPLORE 360°</button></div>
+      </div>
+      <div id="scene" class="scene" role="img" aria-label="Animated three-dimensional luxury off-road vehicle assembling from black liquid and metallic particles"></div>
+      <div class="scene-shade" aria-hidden="true"></div>
+      <div class="scene-ui"><span class="scene-label" id="sceneLabel">00 — AN ORIGIN IN MOTION</span><span class="scene-crosshair">✳</span></div>
+      <div class="timeline"><div class="timeline-left"><span class="timeline-index" id="timelineIndex">00</span><span class="timeline-title" id="timelineTitle">THE BEGINNING</span></div><div class="timeline-track" id="timelineTrack" role="progressbar" aria-label="Reveal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="timeline-fill" id="timelineFill"></div><div class="timeline-progress-dot" id="timelineDot"></div></div><span class="timeline-total">01 / 04</span></div>
+      <div class="hero-footer"><span>SCULPTED TO COMMAND ATTENTION</span><a href="#details">SCROLL TO DISCOVER <span>↓</span></a><span class="hero-footer-right">DESIGNED WITHOUT COMPROMISE</span></div>
+    </section>
+    <section class="details" id="details">
+      <div class="details-intro"><div class="section-index">01 / THE MACHINE</div><div><p class="section-eyebrow">NOT JUST AN ENTRANCE</p><h2>AN IMPRESSION<br />THAT <span>STAYS.</span></h2></div><p class="details-description">A study in commanding silhouettes, considered details, and the tension between brutalist engineering and refined luxury. Rotate the machine. Feel every angle.</p></div>
+      <div class="features"><article class="feature"><span class="feature-number">01</span><span class="feature-icon">◈</span><h3>UNMISTAKABLE FORM</h3><p>An architectural silhouette, rendered in unapologetic black.</p></article><article class="feature"><span class="feature-number">02</span><span class="feature-icon">✳</span><h3>PRECISION IN MOTION</h3><p>Every surface appears from a choreography of liquid, light, and form.</p></article><article class="feature"><span class="feature-number">03</span><span class="feature-icon">◎</span><h3>CRAFTED TO EXPLORE</h3><p>An interactive machine you can orbit, inspect, and experience.</p></article></div>
+    </section>
+    <section class="end-section" id="about"><div class="end-rule"></div><p>NOTHING ORDINARY. NOTHING FORGOTTEN.</p><h2>MAKE AN<br /><i>ENTRANCE.</i></h2><button id="bottomReplay" class="end-link">EXPERIENCE THE REVEAL AGAIN <span>↗</span></button><div class="end-footer"><span>© 2026 OBSIDIAN CONCEPT STUDIO</span><span>INDEPENDENT 3D MOTION STUDY · NOT AFFILIATED WITH ANY AUTOMAKER</span><a href="#top">BACK TO TOP ↑</a></div></section>
+  </main>
+  <div class="rotate-hint" id="rotateHint" aria-hidden="true">DRAG TO ROTATE <span>✳</span> SCROLL TO ZOOM</div>
+  <noscript><div class="noscript">JavaScript is required to view the interactive 3D experience.</div></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
