@@ -367,6 +367,8 @@ body.menu-open{overflow:hidden}
 (()=>{
 'use strict';
 const video=document.getElementById('reveal-video'),menu=document.getElementById('menu-button'),mobile=document.getElementById('mobile-nav');
+// Keep the header and mobile navigation outside the isolated film scene so they remain on top while scrolling.
+document.body.prepend(document.querySelector('.masthead'),mobile);
 function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');mobile.hidden=true;document.body.classList.remove('menu-open')}
 menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';if(open){closeMenu()}else{menu.setAttribute('aria-expanded','true');menu.setAttribute('aria-label','Close navigation');mobile.hidden=false;document.body.classList.add('menu-open')}});
 mobile.querySelectorAll('a').forEach(x=>x.addEventListener('click',closeMenu));
