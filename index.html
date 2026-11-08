@@ -1,399 +1,125 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#d3d3d3" />
-  <meta name="description" content="OBSIDIAN — a premium cinematic automotive experience, from liquid metal to a luxury SUV." />
-  <title>OBSIDIAN — Automotive in Motion</title>
-  <link rel="preload" href="/final.jpg" as="image" />
-  <link rel="preload" href="/obsidian-reveal.mp4" as="video" type="video/mp4" />
-  <style>
-:root { font-synthesis:none; --ink:#141414; --silver:#d2d2d2; --line:rgba(18,18,18,.2); --pad:clamp(23px,4.1vw,68px); }
-*,*::before,*::after { box-sizing:border-box; }
-html,body { margin:0; padding:0; min-width:320px; height:100%; overflow:hidden; }
-body { background:#d4d4d4; color:var(--ink); font-family:Arial,Helvetica,sans-serif; -webkit-font-smoothing:antialiased; }
-button,a { -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
-button:focus-visible,a:focus-visible,[role=slider]:focus-visible { outline:2px solid #000; outline-offset:5px; }
-.experience { position:relative; width:100%; min-height:100vh; min-height:100svh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse 80% 56% at 50% 39%,#f0f0f0 0%,#e5e5e5 55%,#c4c4c4 100%); }
-.masthead { position:absolute; z-index:8; top:0; left:0; width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:clamp(26px,3vw,42px) var(--pad); }
-.wordmark { font-weight:900; font-family:Arial Black,Arial,Helvetica,sans-serif; font-size:clamp(22px,2.25vw,33px); letter-spacing:-.075em; color:var(--ink); text-decoration:none; line-height:1; }
-.wordmark .dot { color:#9c9c9c; }
-.header-right { display:flex; align-items:center; gap:13px; white-space:nowrap; color:#414141; font-size:9px; letter-spacing:.31em; font-weight:700; }
-.header-line { width:30px; height:1px; background:currentColor; }
-.edition { color:#777; }
-.scene { position:absolute; inset:0; overflow:hidden; }
-.film-wrap { position:absolute; inset:0; overflow:hidden; transform:translateZ(0); }
-.reveal-video,.poster-image { position:absolute; left:50%; top:50%; width:100vw; min-width:1080px; height:auto; transform:translate(-50%,-50%) scale(1.075); object-fit:contain; user-select:none; pointer-events:none; -webkit-user-drag:none; }
-.reveal-video { z-index:2; opacity:1; background:#d9d9d9; transition:opacity .38s ease; }
-.poster-image { z-index:1; opacity:1; filter:brightness(.99); }
-.film-wrap.video-error .reveal-video { opacity:0; }
-.film-glow { position:absolute; inset:0; z-index:3; pointer-events:none; background:linear-gradient(180deg,rgba(228,228,228,.31) 0%,transparent 19%,transparent 74%,rgba(201,201,201,.2) 100%); }
-.scene-topline { position:absolute; top:22%; left:var(--pad); right:var(--pad); display:flex; align-items:center; justify-content:space-between; z-index:5; color:#363636; font-size:9px; font-weight:700; letter-spacing:.31em; opacity:.65; }
-.toolbar { position:absolute; z-index:9; left:var(--pad); right:var(--pad); bottom:max(40px, env(safe-area-inset-bottom,0px) + 22px); }
-.control-row { display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center; gap:12px; margin-bottom:24px; }
-.control { background:none; border:0; color:var(--ink); padding:10px 0; display:flex; align-items:center; gap:12px; font-family:inherit; font-size:10px; letter-spacing:.21em; font-weight:700; cursor:pointer; width:max-content; }
-.control svg { width:18px; height:18px; stroke:currentColor; stroke-width:1.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-.control:hover { opacity:.5; }
-.center-note { display:flex; align-items:center; justify-content:center; gap:15px; white-space:nowrap; font-size:9px; color:#555; letter-spacing:.23em; font-weight:700; }
-.separator { display:block; width:20px; height:1px; background:#777; }
-.sound-control { justify-self:end; }
-.sound-control.on .sound-strike { display:none; }
-.progress { position:relative; width:100%; height:18px; padding-top:8px; cursor:pointer; touch-action:none; outline-offset:5px; }
-.progress::before { content:""; position:absolute; top:8px; left:0; right:0; height:1px; background:rgba(20,20,20,.28); }
-.progress-fill { position:absolute; top:8px; left:0; width:0; height:1px; background:#111; }
-.progress-handle { position:absolute; top:4px; left:0; width:9px; height:9px; border:1px solid #111; border-radius:50%; background:#171717; transform:translateX(-50%); transition:box-shadow .2s ease; }
-.progress:hover .progress-handle { box-shadow:0 0 0 5px rgba(0,0,0,.08); }
-.play-gesture { position:absolute; z-index:7; bottom:19%; left:50%; transform:translateX(-50%); }
-.play-gesture[hidden] { display:none; }
-.play-gesture button { appearance:none; border:1px solid rgba(12,12,12,.4); border-radius:999px; background:rgba(236,236,236,.75); color:#191919; display:flex; align-items:center; gap:10px; padding:13px 18px; font-size:10px; font-weight:700; letter-spacing:.18em; backdrop-filter:blur(12px); cursor:pointer; white-space:nowrap; }
-.play-gesture svg { width:18px; height:18px; }
-.bottom-fade { pointer-events:none; position:absolute; z-index:4; bottom:0; left:0; right:0; height:8%; background:linear-gradient(transparent,rgba(206,206,206,.3)); }
-@media (min-width:1500px) { .reveal-video,.poster-image { min-width:0; width:100vw; } }
-@media (max-width:800px) {
- .masthead { padding-top:max(32px,env(safe-area-inset-top,0px) + 20px); }
- .header-right { font-size:8px; letter-spacing:.18em; gap:8px; }
- .header-line { width:18px; }
- .scene-topline { top:25%; font-size:8px; }
- .reveal-video,.poster-image { width:150vw; min-width:0; max-width:none; transform:translate(-50%,-50%) scale(1.06); }
- .control-row { grid-template-columns:1fr 1fr; }
- .center-note { display:none; }
- .toolbar { bottom:max(33px, env(safe-area-inset-bottom,0px) + 18px); }
- .progress { height:25px; }
-}
-@media (max-width:480px) {
- .wordmark { font-size:26px; }
- .header-right { letter-spacing:.1em; font-size:7px; }
- .header-line,.edition { display:none; }
- .scene-topline { top:31%; font-size:7px; letter-spacing:.21em; }
- .scene-topline span:last-child { display:none; }
- .reveal-video,.poster-image { width:154vw; transform:translate(-50%,-52%) scale(1.025); }
- .control-row { margin-bottom:12px; }
- .control { gap:9px; font-size:9px; }
- .control svg { width:17px; height:17px; }
- .play-gesture { bottom:28%; }
-}
-@media (prefers-reduced-motion:reduce) { .reveal-video { transition:none; } }
-
-
-/* OBSIDIAN — cinematic editorial experience */
-html{scroll-behavior:smooth;scroll-padding-top:84px;overflow-x:hidden}
-html,body{height:auto;overflow-x:hidden;overflow-y:auto}
-body{background:#e8e8e6}
-body.menu-open{overflow:hidden}
-.experience{height:100vh;height:100svh;min-height:670px}
-.masthead{height:82px;padding-top:0;padding-bottom:0;position:fixed;background:rgba(236,236,234,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #1010101c;gap:25px}
-.primary-nav{display:flex;align-items:center;gap:clamp(17px,2.5vw,40px);margin-left:auto}
-.primary-nav a{color:#444;text-decoration:none;font-size:11px;letter-spacing:.1em;white-space:nowrap}
-.primary-nav a:hover{color:#000}
-.header-right{letter-spacing:.1em}
-.menu-button{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:42px;height:42px;border:1px solid #aaa;background:transparent;cursor:pointer}
-.menu-button span{display:block;width:19px;height:1px;background:#171717}
-.menu-button[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
-.menu-button[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
-.mobile-nav[hidden]{display:none!important}
-.mobile-nav{display:flex;position:fixed;inset:82px 0 0;z-index:30;background:#e9e9e7;padding:55px var(--pad);flex-direction:column}
-.mobile-nav a{display:block;padding:20px 0;border-bottom:1px solid #bdbdbd;color:#111;text-decoration:none;font-size:clamp(24px,7vw,38px);font-weight:750;letter-spacing:-.055em}
-.mobile-nav a small{font-size:11px;font-weight:500;letter-spacing:.1em;color:#888;margin-right:22px}
-.hero-headline{position:absolute;z-index:6;top:clamp(140px,19vh,225px);left:var(--pad);pointer-events:none}
-.hero-eyebrow,.eyebrow{font-size:10px;letter-spacing:.23em;font-weight:700}
-.hero-eyebrow:before{content:"";display:inline-block;width:30px;height:1px;background:#111;vertical-align:middle;margin-right:12px}
-.hero-headline h1{font-size:clamp(64px,7vw,122px);line-height:.88;letter-spacing:-.08em;font-weight:900;margin:25px 0 15px;max-width:800px}
-.hero-headline h1 b{color:#999}
-.hero-headline p{font-size:13px;color:#444;letter-spacing:.06em}
-.scene-topline{display:none}
-.hero-scroll{position:absolute;z-index:9;right:var(--pad);bottom:115px;display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.17em;font-weight:700;text-decoration:none;color:#222}
-.hero-scroll svg{height:19px;width:19px;stroke:#111;fill:none;stroke-width:1.6}
-.page-section{padding:0;margin:0;position:relative}
-.section-ribbon{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.2em;font-weight:700;padding:24px var(--pad);border-bottom:1px solid #fff4}
-.section-kicker{font-size:10px;letter-spacing:.2em;font-weight:700}
-.section-kicker:before{content:"";display:inline-block;width:28px;height:1px;background:currentColor;vertical-align:middle;margin-right:13px}
-.page-section h2{font-weight:900;letter-spacing:-.085em;line-height:.92;font-size:clamp(58px,8.2vw,150px);margin:28px 0}
-.page-section h2 em{font-style:normal;color:#828282}
-.concept{background:#111213;color:#f6f6f4}
-.concept-top{display:grid;grid-template-columns:1.4fr .85fr;gap:9vw;align-items:end;padding:clamp(100px,12vw,180px) var(--pad) clamp(75px,9vw,130px)}
-.concept-copy{max-width:470px}
-.concept-copy strong{display:block;font-size:clamp(23px,2.2vw,36px);line-height:1.2;font-weight:650;letter-spacing:-.045em;margin-bottom:20px}
-.concept-copy p{color:#b7b7b7;line-height:1.75;font-size:16px;max-width:390px}
-.link-arrow{display:inline-flex;gap:20px;align-items:center;text-decoration:none;margin-top:30px;border-bottom:1px solid #aaa;padding-bottom:14px;font-size:11px;font-weight:700;letter-spacing:.1em}
-.concept-shot{height:clamp(360px,55vw,780px);position:relative;overflow:hidden;background:#ccc}
-.concept-shot img{display:block;width:100%;height:100%;object-fit:cover}
-.photo-caption{position:absolute;bottom:25px;left:var(--pad);right:var(--pad);color:#222;display:flex;justify-content:space-between;gap:15px;font-size:10px;letter-spacing:.17em;font-weight:700}
-.sequence{background:#e4e5e3;color:#191919;padding-bottom:clamp(90px,10vw,165px)}
-.sequence .section-ribbon{border-color:#0002}
-.sequence-top{display:flex;align-items:end;justify-content:space-between;gap:45px;padding:clamp(90px,10vw,150px) var(--pad) 55px}
-.sequence-top p{font-size:15px;line-height:1.6;color:#666;max-width:220px}
-.chapter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;padding:0 var(--pad)}
-.chapter{display:block;min-width:0;border:0;background:transparent;text-align:left;padding:0;cursor:pointer;color:inherit}
-.chapter-visual{display:block;position:relative;background:#bdbebc;aspect-ratio:4/5;overflow:hidden}
-.chapter-visual img,.chapter-visual canvas{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .55s}
-.chapter-visual canvas{opacity:0}
-.chapter.has-frame .chapter-visual canvas{opacity:1}
-.chapter:hover .chapter-visual img,.chapter:hover .chapter-visual canvas{transform:scale(1.05)}
-.chapter-play{position:absolute;right:12px;bottom:12px;display:grid;place-items:center;width:40px;height:40px;background:#111a;border:1px solid #fffb;color:#fff;z-index:2;font-size:17px}
-.chapter-foot{display:flex;justify-content:space-between;gap:6px;padding-top:16px;font-size:10px;letter-spacing:.12em;font-weight:700}
-.chapter-foot span:last-child{color:#777}
-.design{display:grid;grid-template-columns:1.06fr .94fr;min-height:700px;background:#d3d4d2}
-.design-image{position:relative;min-height:700px;overflow:hidden}
-.design-image img{position:absolute;width:100%;height:100%;object-fit:cover;object-position:58% center}
-.design-info{padding:clamp(85px,8vw,135px) clamp(30px,6vw,108px);display:flex;flex-direction:column;justify-content:center}
-.design-info h2{font-size:clamp(58px,6.8vw,106px)}
-.design-info>p{max-width:370px;font-size:17px;color:#5c5c5c;line-height:1.65}
-.design-list{margin-top:50px;border-top:1px solid #999}
-.design-list>div{padding:20px 0;border-bottom:1px solid #aaa;display:grid;grid-template-columns:28px 1fr;gap:8px;font-size:11px;letter-spacing:.1em}
-.design-list span{color:#888}
-.design-list strong{font-weight:700}
-.design-list p{grid-column:2;color:#666;font-size:13px;line-height:1.6;letter-spacing:0}
-.final-section{height:90vh;min-height:630px;position:relative;overflow:hidden;background:#0b0c0e;color:white}
-.final-section:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#07090be8 0%,#090a0ac0 40%,#080a0a22 100%),url('/final.jpg') center/cover no-repeat;filter:brightness(.81)}
-.final-copy{position:relative;z-index:1;height:100%;padding:clamp(90px,10vw,160px) var(--pad);display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
-.final-copy h2{font-size:clamp(57px,7.7vw,120px);margin:30px 0 43px}
-.final-button{display:inline-flex;align-items:center;border:1px solid #fff9;padding:19px 25px;text-decoration:none;font-size:10px;letter-spacing:.12em;font-weight:700}
-.final-button:hover{background:#fff;color:#111}
-.site-footer{padding:42px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:25px;background:#e4e5e3;font-size:10px;letter-spacing:.13em;font-weight:700}
-.site-footer a{text-decoration:none}
-.site-footer .wordmark{font-size:25px}
-@media(max-width:1100px){.primary-nav{gap:17px}.header-right{display:none}.chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chapter-visual{aspect-ratio:1.38}.concept-top{grid-template-columns:1.2fr 1fr}.design-info{padding:75px 5vw}}
-@media(max-width:800px){.masthead{height:70px}.primary-nav{display:none}.menu-button{display:flex;margin-left:auto}.mobile-nav{top:70px}.experience{min-height:670px}.hero-headline{top:130px}.hero-headline h1{font-size:clamp(52px,11vw,78px)}.hero-scroll{bottom:114px}.concept-top{grid-template-columns:1fr;gap:40px;padding:90px var(--pad) 80px}.concept-shot{height:440px}.design{grid-template-columns:1fr}.design-image{min-height:460px}.design-info{padding:85px var(--pad)}}
-@media(max-width:540px){:root{--pad:22px}.experience{min-height:680px}.masthead{height:68px}.mobile-nav{top:68px}.hero-headline{top:132px}.hero-headline h1{font-size:clamp(50px,12.5vw,66px);margin:19px 0 13px}.hero-headline p{font-size:12px}.reveal-video,.poster-image{width:208vw;min-width:0;transform:translate(-50%,-49%) scale(1.02)}.hero-scroll{bottom:110px;font-size:8px}.hero-scroll svg{width:15px;height:15px}.hero-eyebrow{font-size:9px}.section-ribbon{padding:22px var(--pad);font-size:9px}.section-ribbon span:last-child{display:none}.page-section h2{font-size:clamp(60px,14vw,86px)}.concept-copy strong{font-size:25px}.concept-copy p{font-size:15px}.concept-shot{height:350px}.photo-caption{font-size:9px}.photo-caption span:last-child{display:none}.sequence-top{padding:87px var(--pad) 40px;display:block}.sequence-top p{margin-top:20px}.chapter-grid{grid-template-columns:1fr;gap:34px}.chapter-visual{aspect-ratio:1.4}.design-image{min-height:380px}.design-info h2{font-size:clamp(62px,14vw,85px)}.final-section{height:85svh;min-height:660px}.final-section:before{background:linear-gradient(0deg,#050608e6 0%,#05050646 90%),url('/final.jpg') 62% center/cover}.final-copy{justify-content:flex-end;padding-bottom:115px}.final-copy h2{font-size:clamp(58px,12.8vw,80px)}.site-footer{flex-wrap:wrap;gap:14px}.site-footer .wordmark{width:100%}}
-@media(max-width:380px){.hero-headline h1{font-size:49px}.control{font-size:9px}.chapter-foot{font-size:9px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e9e9e7">
+  <meta name="description" content="OBSIDIAN — an immersive automotive motion study. Discover a cinematic transformation from liquid metal to machine.">
+  <meta property="og:title" content="OBSIDIAN — Form in Motion">
+  <meta property="og:description" content="A cinematic automotive experience. Formed from motion.">
+  <meta property="og:image" content="https://obsidian-automotive-reveal.vercel.app/final.jpg">
+  <title>OBSIDIAN — Form in Motion</title>
+  <link rel="preload" href="/final.jpg" as="image">
+  <link rel="stylesheet" href="/styles.css?v=4">
+  <script src="/app.js?v=4" defer></script>
 </head>
 <body>
-  <main class="experience" id="experience">
-    <header class="masthead">
-      <a class="wordmark" href="#experience" aria-label="OBSIDIAN automotive concept home">OBSIDIAN<span class="dot">.</span></a>
-      
-<nav class="primary-nav" aria-label="Main navigation"><a href="#experience">Experience</a><a href="#concept">Concept</a><a href="#sequence">The sequence</a><a href="#design">Design</a></nav>
-<button class="menu-button" id="menu-button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" type="button"><span></span><span></span></button>
-<div class="header-right"><span class="header-line"></span><span>AUTOMOTIVE MOTION STUDY</span><span class="edition">/ 001</span></div>
-    </header>
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#experience"><small>01</small> Experience</a><a href="#concept"><small>02</small> Concept</a><a href="#sequence"><small>03</small> The sequence</a><a href="#design"><small>04</small> Design</a><a href="#final"><small>05</small> Studio</a></nav>
-
-    <section class="scene" aria-label="Cinematic liquid-metal vehicle transformation">
-      <div class="film-wrap" id="film-wrap">
-        <video
-          id="reveal-video"
-          class="reveal-video"
-          autoplay
-          muted
-          playsinline
-          webkit-playsinline
-          preload="auto"
-          poster="/final.jpg"
-          disablepictureinpicture
-          disableremoteplayback
-          aria-label="Black liquid transforming into a photorealistic SUV"
-        ><source src="/obsidian-reveal.mp4" type="video/mp4" /></video>
-        <img class="poster-image" src="/final.jpg" alt="Photorealistic black SUV in a silver studio" />
-      </div>
-      <div class="film-glow" aria-hidden="true"></div>
-      
-<div class="hero-headline"><span class="hero-eyebrow">OBSIDIAN / 001</span><h1>FORM<br>IN MOTION<b>.</b></h1><p>A cinematic automotive study.</p></div>
-<a class="hero-scroll" href="#concept">SCROLL TO EXPLORE <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4 13l8 8 8-8"/></svg></a>
-<div class="scene-topline" aria-hidden="true"><span>01 — THE FORM</span><span>OBSIDIAN / MOTION</span></div>
-      <div class="play-gesture" id="gesture" hidden>
-        <button id="gesture-play" type="button" aria-label="Play cinematic reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/></svg>
-          <span>PLAY FILM</span>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" id="site-header">
+  <a class="brand" href="#top" aria-label="OBSIDIAN, home">OBSIDIAN<span class="brand-period">.</span></a>
+  <nav class="desktop-nav" aria-label="Primary navigation">
+    <a href="#experience">Experience</a>
+    <a href="#concept">Concept</a>
+    <a href="#sequence">The sequence</a>
+    <a href="#studio">Studio</a>
+  </nav>
+  <div class="header-actions">
+    <a class="header-cta" href="#experience"><span>Watch the film</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation"><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+  <a href="#experience"><span>01</span> Experience</a>
+  <a href="#concept"><span>02</span> Concept</a>
+  <a href="#sequence"><span>03</span> The sequence</a>
+  <a href="#studio"><span>04</span> Studio</a>
+</nav>
+<main id="main">
+  <section class="hero" id="experience" aria-label="Cinematic SUV reveal">
+    <div id="top" class="hero-anchor" aria-hidden="true"></div>
+    <div class="hero-video-wrap" id="film-wrap">
+      <img class="hero-poster" src="/final.jpg" alt="Glossy black luxury SUV in a minimal silver studio" fetchpriority="high">
+      <video id="reveal-video" class="hero-video" autoplay muted playsinline webkit-playsinline preload="metadata" poster="/final.jpg" disablepictureinpicture disableremoteplayback aria-label="Black liquid transforms into a luxury SUV">
+        <source src="/obsidian-reveal.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-light" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="small-rule"></span> OBSIDIAN / 001</div>
+      <h1>FORM<br>IN MOTION<span class="period">.</span></h1>
+      <p>A cinematic automotive study.</p>
+    </div>
+    <div class="hero-side-note" aria-hidden="true">INDEPENDENT DESIGN &amp; MOTION STUDY&nbsp;&nbsp;—&nbsp;&nbsp;2026</div>
+    <div class="video-center-action" id="video-prompt" hidden>
+      <button id="prompt-play" type="button" class="prompt-button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7V5Z"/></svg><span>Play film</span>
+      </button>
+    </div>
+    <div class="film-controls" aria-label="Cinematic playback controls">
+      <div class="film-controls-top">
+        <div class="film-action-group">
+          <button class="film-control" id="replay" type="button" aria-label="Replay transformation">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.5a8.5 8.5 0 1 0 2.7-6.1L3.5 8.3m0-5v5h5"/></svg><span>REPLAY</span>
+          </button>
+          <button class="film-control" id="play-pause" type="button" aria-label="Pause film">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path id="pause-shape" d="M8 5v14M16 5v14"/></svg><span id="play-state">PAUSE</span>
+          </button>
+        </div>
+        <div class="film-time"><span id="film-phase">THE REVEAL</span><span class="film-dash"></span><time id="timecode">00:00 / 00:11</time></div>
+        <button class="film-control sound-control" id="sound" type="button" aria-label="Enable sound" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3"/><path id="speaker-cross" d="m16 9 5 6m0-6-5 6"/></svg><span id="sound-label">SOUND OFF</span>
         </button>
       </div>
-    </section>
-
-    <footer class="toolbar">
-      <div class="control-row">
-        <button class="control" type="button" id="replay" aria-label="Replay the transformation">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 11.9a8.4 8.4 0 1 0 2.8-6.3L3.3 8.8M3.3 3.9v4.9h4.9"/></svg>
-          <span>REPLAY</span>
-        </button>
-        <div class="center-note" aria-live="polite"><span id="phase">THE REVEAL</span><span class="separator"></span><span id="timecode">00:00 / 00:11</span></div>
-        <button class="control sound-control" type="button" id="sound" aria-label="Enable sound" aria-pressed="false">
-          <svg id="sound-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path class="sound-strike" d="m17 9 5 6m0-6-5 6"/></svg>
-          <span id="sound-label">SOUND OFF</span>
-        </button>
+      <div class="film-progress" id="progress" role="slider" tabindex="0" aria-label="Scrub the cinematic film" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 seconds">
+        <span class="film-track"></span><span id="progress-fill" class="film-progress-fill"></span><span id="progress-handle" class="film-progress-handle"></span>
       </div>
-      <div id="progress" class="progress" role="slider" tabindex="0" aria-label="Scrub the cinematic reveal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 seconds">
-        <div id="progress-fill" class="progress-fill"></div>
-        <div id="progress-handle" class="progress-handle"></div>
+      <div class="hero-bottomline"><span>01 / THE REVEAL</span><a href="#concept">SCROLL TO EXPLORE <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M4 11l6 6 6-6"/></svg></a><span>AN ORIGIN IN MOTION</span></div>
+    </div>
+  </section>
+
+  <section class="intro-section" id="concept" aria-labelledby="concept-heading">
+    <div class="section-ribbon"><span>02 / THE CONCEPT</span><span>AN EXERCISE IN PRESENCE</span></div>
+    <div class="intro-grid">
+      <div class="intro-header">
+        <p class="section-kicker"><span class="small-rule"></span> BEYOND THE ORDINARY</p>
+        <h2 id="concept-heading">NOT BUILT.<br><em>BORN.</em></h2>
       </div>
-    </footer>
-    <div class="bottom-fade" aria-hidden="true"></div>
-  </main>
-<section class="page-section concept" id="concept" aria-labelledby="concept-title">
-<div class="section-ribbon"><span>02 / THE CONCEPT</span><span>AN EXERCISE IN PRESENCE</span></div>
-<div class="concept-top"><div><p class="section-kicker">BEYOND THE ORDINARY</p><h2 id="concept-title">NOT BUILT.<br><em>BORN.</em></h2></div><div class="concept-copy"><strong>A machine emerges from the unexpected.</strong><p>Liquid becomes structure. Shadow becomes surface. Every movement reveals another piece of the form.</p><a class="link-arrow" href="#sequence">Explore the transformation <span aria-hidden="true">→</span></a></div></div>
-<div class="concept-shot"><img src="/final.jpg" alt="Black luxury SUV revealed in a silver studio" loading="lazy"><div class="photo-caption"><span>FINAL FORM / 001</span><span>DESIGNED TO COMMAND ATTENTION</span></div></div>
-</section>
-<section class="page-section sequence" id="sequence" aria-labelledby="sequence-title">
-<div class="section-ribbon"><span>03 / THE SEQUENCE</span><span>FOUR MOMENTS / ONE TRANSFORMATION</span></div>
-<div class="sequence-top"><div><p class="section-kicker">STUDY OF TRANSFORMATION</p><h2 id="sequence-title">THE ART OF<br><em>BECOMING.</em></h2></div><p>Choose a chapter to return to that moment in the film.</p></div>
-<div class="chapter-grid">
-<button type="button" class="chapter" data-time="0" aria-label="Watch the Origin chapter"><span class="chapter-visual"><img src="/final.jpg" alt="Liquid metal sequence opening"><canvas data-capture="0.3" aria-hidden="true"></canvas><span class="chapter-play" aria-hidden="true">▶</span></span><span class="chapter-foot"><span>01 / THE ORIGIN</span><span>00:00</span></span></button>
-<button type="button" class="chapter" data-time="2.9" aria-label="Watch the Emergence chapter"><span class="chapter-visual"><img src="/final.jpg" alt="SUV begins to emerge from liquid metal"><canvas data-capture="3" aria-hidden="true"></canvas><span class="chapter-play" aria-hidden="true">▶</span></span><span class="chapter-foot"><span>02 / EMERGENCE</span><span>00:03</span></span></button>
-<button type="button" class="chapter" data-time="6.8" aria-label="Watch the Assembly chapter"><span class="chapter-visual"><img src="/final.jpg" alt="SUV body assembling"><canvas data-capture="6.8" aria-hidden="true"></canvas><span class="chapter-play" aria-hidden="true">▶</span></span><span class="chapter-foot"><span>03 / ASSEMBLY</span><span>00:07</span></span></button>
-<button type="button" class="chapter" data-time="10.1" aria-label="Watch the Arrival chapter"><span class="chapter-visual"><img src="/final.jpg" alt="Fully revealed black SUV"><canvas data-capture="10" aria-hidden="true"></canvas><span class="chapter-play" aria-hidden="true">▶</span></span><span class="chapter-foot"><span>04 / THE ARRIVAL</span><span>00:10</span></span></button>
-</div>
-</section>
-<section class="page-section design" id="design" aria-labelledby="design-title">
-<div class="design-image"><img src="/final.jpg" alt="Close-up of the reflective black SUV silhouette" loading="lazy"></div>
-<div class="design-info"><p class="section-kicker">THE DESIGN LANGUAGE</p><h2 id="design-title">MADE TO<br>BE <em>SEEN.</em></h2><p>Strong lines. Deep reflections. A silhouette that holds its own.</p>
-<div class="design-list"><div><span>01</span><strong>THE SILHOUETTE</strong><p>Unmistakable geometry. Quiet confidence.</p></div><div><span>02</span><strong>LIGHT &amp; SHADOW</strong><p>Reflections shape every surface.</p></div><div><span>03</span><strong>THE REVEAL</strong><p>From liquid to a singular presence.</p></div></div>
-</div>
-</section>
-<section class="page-section final-section" id="final" aria-labelledby="final-title">
-<div class="final-copy"><p class="section-kicker">04 / THE ARRIVAL</p><h2 id="final-title">EVERYTHING<br>BEGINS WITH<br><em>AN ENTRANCE.</em></h2><a class="final-button" href="#experience" id="replay-final">WATCH THE REVEAL AGAIN <span aria-hidden="true">→</span></a></div>
-</section>
-<footer class="site-footer"><a class="wordmark" href="#experience">OBSIDIAN<span class="dot">.</span></a><span>INDEPENDENT MOTION CONCEPT · 2026</span><a href="#experience">BACK TO TOP ↑</a></footer>
-  <script>
-(() => {
-  'use strict';
-  const video = document.getElementById('reveal-video');
-  const filmWrap = document.getElementById('film-wrap');
-  const replay = document.getElementById('replay');
-  const sound = document.getElementById('sound');
-  const soundLabel = document.getElementById('sound-label');
-  const progress = document.getElementById('progress');
-  const fill = document.getElementById('progress-fill');
-  const handle = document.getElementById('progress-handle');
-  const timecode = document.getElementById('timecode');
-  const phase = document.getElementById('phase');
-  const gesture = document.getElementById('gesture');
-  const gesturePlay = document.getElementById('gesture-play');
-  const assumedDuration = 10.8;
-  let isScrubbing = false;
-  let isEnded = false;
-  let videoFailed = false;
+      <div class="intro-text">
+        <p class="intro-lead">A machine emerges from the unexpected.</p>
+        <p>Liquid becomes structure. Shadow becomes surface. Every movement reveals another piece of the form.</p>
+        <a class="inline-link" href="#sequence">Explore the transformation <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></a>
+      </div>
+    </div>
+    <div class="intro-art" aria-label="Black vehicle in a studio"><img src="/final.jpg" alt="Fully revealed black SUV, three-quarter front view" loading="eager" decoding="async"><div class="intro-art-caption"><span>FINAL FORM / 001</span><span>DESIGNED TO COMMAND ATTENTION</span></div></div>
+  </section>
 
-  function clock(t) {
-    t = Math.max(0, Math.floor(Number.isFinite(t) ? t : 0));
-    return `${String(Math.floor(t / 60)).padStart(2,'0')}:${String(t % 60).padStart(2,'0')}`;
-  }
-  function duration() { return Number.isFinite(video.duration) && video.duration > 0 ? video.duration : assumedDuration; }
-  function update() {
-    const d = duration();
-    const pct = Math.max(0, Math.min(100, ((video.currentTime || 0) / d) * 100));
-    fill.style.width = `${pct}%`;
-    handle.style.left = `${pct}%`;
-    progress.setAttribute('aria-valuenow', String(Math.round(pct)));
-    progress.setAttribute('aria-valuetext', `${Math.round(video.currentTime || 0)} seconds`);
-    timecode.textContent = `${clock(video.currentTime)} / ${clock(d)}`;
-    const t = video.currentTime || 0;
-    phase.textContent = t < 1.2 ? 'AWAKENING' : t < 4 ? 'TAKING FORM' : t < 7.5 ? 'ASSEMBLY' : 'THE ARRIVAL';
-  }
-  function showManualPlay() { gesture.hidden = false; }
-  function hideManualPlay() { gesture.hidden = true; }
-  function failPlayback() {
-    videoFailed = true;
-    filmWrap.classList.add('video-error');
-    // The final studio still is always visible; never display a blank WebGL canvas or WebGL warning.
-    showManualPlay();
-    gesturePlay.querySelector('span').textContent = 'RETRY FILM';
-  }
-  function start(fromBeginning = false) {
-    if (fromBeginning) { try { video.currentTime = 0; } catch (_) {} }
-    isEnded = false;
-    if (videoFailed) {
-      video.load();
-      videoFailed = false;
-      filmWrap.classList.remove('video-error');
-    }
-    const p = video.play();
-    if (p && typeof p.then === 'function') p.then(hideManualPlay).catch(showManualPlay);
-    else hideManualPlay();
-    update();
-  }
-  function toggleSound() {
-    video.muted = !video.muted;
-    video.volume = .7;
-    sound.setAttribute('aria-pressed', String(!video.muted));
-    sound.setAttribute('aria-label', video.muted ? 'Enable sound' : 'Mute sound');
-    soundLabel.textContent = video.muted ? 'SOUND OFF' : 'SOUND ON';
-    sound.classList.toggle('on', !video.muted);
-    if (!video.paused && !video.ended) return;
-    if (!videoFailed && !isEnded) start(false);
-  }
-  function setTimeFromPointer(event) {
-    const r = progress.getBoundingClientRect();
-    if (r.width <= 0 || videoFailed) return;
-    const pct = Math.max(0,Math.min(1,(event.clientX-r.left)/r.width));
-    if (video.readyState >= 1) video.currentTime = pct * duration();
-    update();
-  }
-  replay.addEventListener('click', () => start(true));
-  sound.addEventListener('click', toggleSound);
-  gesturePlay.addEventListener('click', () => start(isEnded));
-  progress.addEventListener('pointerdown', e => {
-    isScrubbing = true;
-    if (progress.setPointerCapture) progress.setPointerCapture(e.pointerId);
-    setTimeFromPointer(e);
-  });
-  progress.addEventListener('pointermove', e => { if (isScrubbing) setTimeFromPointer(e); });
-  progress.addEventListener('pointerup', e => { if (isScrubbing) setTimeFromPointer(e); isScrubbing=false; });
-  progress.addEventListener('pointercancel', () => { isScrubbing=false; });
-  progress.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      e.preventDefault();
-      video.currentTime = Math.max(0,Math.min(duration(),(video.currentTime || 0) + (e.key === 'ArrowRight' ? 1 : -1)));
-      update();
-    } else if (e.key === 'Home') { video.currentTime=0; update(); }
-    else if (e.key === 'End') { video.currentTime=duration(); update(); }
-  });
-  video.addEventListener('loadedmetadata', update);
-  video.addEventListener('timeupdate', update);
-  video.addEventListener('playing', hideManualPlay);
-  video.addEventListener('ended', () => { isEnded=true; phase.textContent='THE ARRIVAL'; update(); });
-  video.addEventListener('error', failPlayback);
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden && !video.paused) video.pause();
-  });
-  // Safari allows muted, inline playback without requiring WebGL or a user gesture.
-  video.muted = true;
-  video.playsInline = true;
-  video.volume = .7;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    video.pause();
-    try { video.currentTime = Math.max(0,duration()-0.05); } catch(_) {}
-    showManualPlay();
-  } else {
-    start(false);
-  }
-  update();
-})();
+  <section class="sequence-section" id="sequence" aria-labelledby="sequence-heading">
+    <div class="section-ribbon section-ribbon-light"><span>03 / THE SEQUENCE</span><span>FOUR MOMENTS / ONE TRANSFORMATION</span></div>
+    <div class="section-title-line">
+      <div><p class="section-kicker"><span class="small-rule"></span> STUDY OF TRANSFORMATION</p><h2 id="sequence-heading">THE ART OF<br><em>BECOMING.</em></h2></div>
+      <p>Select any frame to revisit that moment in the film.</p>
+    </div>
+    <div class="chapter-grid">
+      <button type="button" class="chapter-card" data-time="0" aria-label="Play the Origin chapter from the beginning"><div class="chapter-image"><img src="/chapters.webp" class="sprite sprite-0" width="719" height="358" alt="Glossy liquid metal beginning to gather" loading="eager" decoding="async"><span class="chapter-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></svg></span></div><div class="chapter-info"><span>01 / THE ORIGIN</span><span>00:00</span></div></button>
+      <button type="button" class="chapter-card" data-time="2.6" aria-label="Play the Emergence chapter"><div class="chapter-image"><img src="/chapters.webp" class="sprite sprite-2" width="719" height="358" alt="Liquid metal rising to form the front of an SUV" loading="eager" decoding="async"><span class="chapter-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></svg></span></div><div class="chapter-info"><span>02 / EMERGENCE</span><span>00:03</span></div></button>
+      <button type="button" class="chapter-card" data-time="6.8" aria-label="Play the Assembly chapter"><div class="chapter-image"><img src="/chapters.webp" class="sprite sprite-4" width="719" height="358" alt="SUV body mostly formed while metallic droplets settle" loading="eager" decoding="async"><span class="chapter-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></svg></span></div><div class="chapter-info"><span>03 / ASSEMBLY</span><span>00:07</span></div></button>
+      <button type="button" class="chapter-card" data-time="10.2" aria-label="Play the Arrival chapter"><div class="chapter-image"><img src="/chapters.webp" class="sprite sprite-5" width="719" height="358" alt="Fully formed black SUV in the studio" loading="eager" decoding="async"><span class="chapter-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></svg></span></div><div class="chapter-info"><span>04 / THE ARRIVAL</span><span>00:10</span></div></button>
+    </div>
+  </section>
 
-</script>
-<script>
-(()=>{
-'use strict';
-const video=document.getElementById('reveal-video'),menu=document.getElementById('menu-button'),mobile=document.getElementById('mobile-nav');
-// Keep the header and mobile navigation outside the isolated film scene so they remain on top while scrolling.
-document.body.prepend(document.querySelector('.masthead'),mobile);
-function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');mobile.hidden=true;document.body.classList.remove('menu-open')}
-menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';if(open){closeMenu()}else{menu.setAttribute('aria-expanded','true');menu.setAttribute('aria-label','Close navigation');mobile.hidden=false;document.body.classList.add('menu-open')}});
-mobile.querySelectorAll('a').forEach(x=>x.addEventListener('click',closeMenu));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
-matchMedia('(min-width:801px)').addEventListener('change',e=>{if(e.matches)closeMenu()});
-const chapters=[...document.querySelectorAll('.chapter')],captures=[...document.querySelectorAll('canvas[data-capture]')],captured=new WeakSet();
-function capture(){
- if(video.readyState<2 || !video.videoWidth || !video.videoHeight)return;
- const t=video.currentTime||0;
- for(const c of captures){
-  if(captured.has(c)||t<Number(c.dataset.capture))continue;
-  try{c.width=720;c.height=360;c.getContext('2d',{alpha:false}).drawImage(video,0,0,c.width,c.height);c.parentElement.parentElement.classList.add('has-frame');captured.add(c)}catch(e){/* poster remains visible */}
- }
-}
-video.addEventListener('timeupdate',capture);
-chapters.forEach(ch=>ch.addEventListener('click',()=>{
- document.getElementById('experience').scrollIntoView({behavior:'instant'});
- const t=Number(ch.dataset.time)||0;
- const seek=()=>{try{video.currentTime=t;video.play().catch(()=>{})}catch(e){}};
- if(video.readyState>=1)requestAnimationFrame(seek);else video.addEventListener('loadedmetadata',seek,{once:true});
-}));
-document.getElementById('replay-final').addEventListener('click',e=>{
- e.preventDefault();document.getElementById('experience').scrollIntoView({behavior:'instant'});
- requestAnimationFrame(()=>document.getElementById('replay').click());
-});
-const io=new IntersectionObserver(es=>{for(const e of es){if(e.target.id==='experience'&&!e.isIntersecting&&!video.paused)video.pause()}},{threshold:0.02});io.observe(document.getElementById('experience'));
-})();</script></body>
+  <section class="detail-section" aria-labelledby="detail-heading">
+    <div class="detail-image"><img src="/final.jpg" width="719" height="358" alt="Architectural silhouette and reflective surfaces of the concept SUV" loading="eager" decoding="async"><span class="image-index">01—04 / A STUDY IN CONTRAST</span></div>
+    <div class="detail-content"><p class="section-kicker"><span class="small-rule"></span> THE DESIGN LANGUAGE</p><h2 id="detail-heading">MADE TO<br>BE <em>SEEN.</em></h2><p>Strong lines. Deep reflections. A silhouette that holds its own.</p>
+      <div class="detail-list"><div><span>01</span><strong>THE SILHOUETTE</strong><p>Unmistakable geometry. Quiet confidence.</p></div><div><span>02</span><strong>LIGHT &amp; SHADOW</strong><p>Reflections carve character into every surface.</p></div><div><span>03</span><strong>THE REVEAL</strong><p>From an abstract idea to a singular presence.</p></div></div>
+    </div>
+  </section>
+
+  <section class="studio-section" id="studio" aria-labelledby="studio-heading">
+    <div class="studio-background" aria-hidden="true"></div>
+    <div class="studio-content"><p class="section-kicker"><span class="small-rule"></span> 04 / THE ARRIVAL</p><h2 id="studio-heading">EVERYTHING<br>BEGINS WITH<br><em>AN ENTRANCE.</em></h2><a class="studio-button" href="#experience" id="final-replay">WATCH THE REVEAL AGAIN <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></a></div>
+    <span class="studio-label">OBSIDIAN / AN ORIGINAL MOTION CONCEPT</span>
+  </section>
+</main>
+<footer class="site-footer"><a class="brand footer-brand" href="#experience">OBSIDIAN<span class="brand-period">.</span></a><span>INDEPENDENT AUTOMOTIVE MOTION STUDY</span><span>© 2026 OBSIDIAN CONCEPT</span><a href="#top">BACK TO TOP <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 17V3M4 9l6-6 6 6"/></svg></a></footer>
+</body>
 </html>

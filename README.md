@@ -1,28 +1,22 @@
-# OBSIDIAN — Cinematic Automotive Reveal
+# OBSIDIAN — Responsive automotive concept
 
-A full-screen, mobile-first automotive concept website featuring a photorealistic black SUV emerging from liquid metal. **The reveal is a pre-rendered MP4**, not a WebGL or CSS-rendered 3D car. This ensures the cinematic vehicle is visible on iPhone Safari even when WebGL is unavailable.
+An independent cinematic automotive experience built with plain HTML, CSS and JavaScript. The 10.8-second pre-rendered video remains the centrepiece: no WebGL is required.
 
 ## Features
-- Progressive SUV assembly from generated photographic frames
-- 10.8-second cinematic film with original synthesized sound effects
-- Muted, inline, autoplay-ready MP4 (H.264/AAC)
-- Replay, sound toggle, accessible timeline scrubbing
-- Still-image fallback if video playback fails
-- Minimal black and silver interface; no emojis or low-poly 3D
-- Static site deployable to Vercel without a build pipeline
+
+- Responsive cinematic hero with custom replay, pause, sound, and seek controls
+- Autoplay-muted, inline playback on mobile with poster fallback and manual-play option
+- Four real-frame jump-to-chapter buttons for liquid, emergence, assembly, and arrival
+- Concept, design, sequence, and studio sections
+- Responsive navigation with keyboard-friendly mobile menu
+- Respect for reduced-motion preference, safe-area insets, semantic headings, and visible focus styles
 
 ## Run locally
 
-```bash
-python3 -m http.server 8080
-```
-
-Visit http://localhost:8080. For Safari, use HTTPS when testing on a phone via a remote address.
-
-## Notes
-
-The SUV reveal is an original AI-generated frame sequence blended into a cinematic film; it is not a continuously simulated physics morph or a rotatable 3D model. The reference clip is used for art direction only. No manufacturer partnership or affiliation is implied.
+From this directory, run `python3 -m http.server 8080`, then open `http://localhost:8080`.
 
 ## Deployment
 
-Deploy root as a static site on Vercel; project has no build command and no dependencies. Generated frames remain in `public/` as production assets; the video is at `/obsidian-reveal.mp4`.
+Deploy the contents of this folder as a static website to Vercel. No build command and no environment variables are required.
+
+The SUV and the film are original computer-generated concept imagery. They do not represent a production vehicle or official automaker campaign.

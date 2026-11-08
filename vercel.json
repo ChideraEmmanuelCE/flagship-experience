@@ -1,5 +1,9 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "headers": [{ "source": "/obsidian-reveal.mp4", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }]
+  "trailingSlash": false,
+  "headers": [
+    {"source":"/obsidian-reveal.mp4","headers":[{"key":"Cache-Control","value":"public,max-age=86400"},{"key":"Accept-Ranges","value":"bytes"}]},
+    {"source":"/(.*).(jpg|webp)","headers":[{"key":"Cache-Control","value":"public,max-age=86400"}]}
+  ]
 }
