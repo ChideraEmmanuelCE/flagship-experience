@@ -246,6 +246,8 @@ function createVehicle() {
   // Tiny highlight pinstripes create luxury-body reflections.
   for(const z of [-.993,.993]) part(new THREE.BoxGeometry(3.2,.014,.012),silver,.43,1.91,z,'chrome');
   carRoot.position.y=-.08;
+  // Save post-construction orientations (headlight rings, grille badge, wheel axes).
+  for(const component of carParts) component.userData.finalRotation = component.rotation.clone();
 }
 
 function createLiquid() {
@@ -331,10 +333,8 @@ function revealCar(t) {
     const fly=1-v;
     part.position.copy(d.home).addScaledVector(d.flight,fly*1.65);
     part.scale.copy(d.originalScale).multiplyScalar(.09+.91*v);
-    part.rotation.y=(d.tag==='wheels'||d.tag==='chrome'?fly*.65:0)+(d.tag==='glass'?fly*.3:0);
-    if(d.tag==='wheels' && d.home.z!==0 && part.geometry.type==='CylinderGeometry'){
-      part.rotation.x=Math.PI/2;
-    }
+    part.rotation.copy(d.finalRotation);
+    part.rotation.y += (d.tag==='wheels'||d.tag==='chrome'?fly*.65:0)+(d.tag==='glass'?fly*.3:0);
   }
   carRoot.position.y=-.08+Math.sin(t*1.8)*.006*r;
   carRoot.rotation.y=.02 + Math.sin(t*.21)*.034*r;
